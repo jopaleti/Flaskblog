@@ -1,0 +1,71 @@
+{% extends "layout.html" %}
+{% block content %}
+	<div class="content-section4">
+		<div class="media">
+			<img class="rounded-circle account-img" src="{{ image_file }}">
+			<div class="media-body">
+				<h2 class="account-heading">{{ current_user.username }}</h2>
+				<p class="text-secondary">{{ current_user.email }}</p>
+			</div>
+		</div>
+		<div class="img1">
+			<img src="" id="image">
+			<script type="text/javascript">
+				let image = document.getElementById("image");
+				let images = ['https://images.unsplash.com/photo-1548602088-9d12a4f9c10f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8NTZ8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=600&q=60', 'https://images.unsplash.com/photo-1547979854-5333256878de?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTJ8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=600&q=60', 'https://images.unsplash.com/photo-1548567117-02328f050eaa?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8NTl8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=600&q=60', 'https://images.unsplash.com/photo-1549138144-42ff3cdd2bf8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8NzF8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=600&q=60']
+				setInterval(function(){
+					let random = Math.floor(Math.random() * 4);
+					image.src = images[random];
+				}, 5000)
+			</script>
+		</div>
+		<form method="POST" action="" enctype="multipart/form-data" class="form1">
+				{{ form.hidden_tag() }}
+				<fieldset class="form-group">
+					<legend class="border-bottom mb-4" style="color: white;"><h3>Account Info</h3></legend>	
+					<div class="form-group">
+						{{ form.username.label(class="form-control-label") }}
+
+						{% if form.username.errors %}
+							{{ form.username(class="form-control form-control-lg is-invalid") }}
+							<div class="invalid-feedback">
+							{% for error in form.username.errors %}
+								<span>{{ error }}</span>
+							{% endfor %}
+							</div>
+						{% else %}
+							{{ form.username(class="form-control form-control-lg") }}
+						{% endif %}
+
+					</div>
+					<div class="form-group">
+						{{ form.email.label(class="form-control-label") }}
+						{% if form.email.errors %}
+							{{ form.email(class="form-control form-control-lg is-invalid") }}
+							<div class="invalid-feedback">
+							{% for error in form.email.errors %}
+								<span>{{ error }}</span>
+							{% endfor %}
+							</div>
+						{% else %}
+							{{ form.email(class="form-control form-control-lg") }}
+						{% endif %}
+						
+					</div>
+					<div class="form-group">
+						{{ form.picture.label() }}
+						{{ form.picture(class="form-control-file") }}
+						{% if form.picture.errors %}
+							{% for error in form.picture.errors %}
+								<span class="text-danger">{{ error }}</span></br>
+							{% endfor %}
+						{% endif %}
+					</div>
+					
+				</fieldset>
+				<div class="form-group" id="sub" style="text-align: center;">
+					{{ form.submit(class="btn btn-outline-info") }}
+				</div>
+			</form>
+	</div>
+{% endblock content %}
